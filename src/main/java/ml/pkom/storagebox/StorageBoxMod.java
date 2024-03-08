@@ -8,8 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class StorageBoxMod implements ModInitializer
-{
+public class StorageBoxMod implements ModInitializer {
     // Forge: https://www.curseforge.com/minecraft/mc-mods/storagebox-mod
     public static String MOD_NAME = "StorageBox";
     public static String MOD_ID = "storagebox";
@@ -25,13 +24,18 @@ public class StorageBoxMod implements ModInitializer
 
         ModConfig.init();
     }
+
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static void log(Level level, String message){
+    public static void log(Level level, String message) {
         LOGGER.log(level, "[" + MOD_NAME + "] " + message);
     }
 
     public static Identifier id(String id) {
         return new Identifier(MOD_ID, id);
+    }
+
+    public static String translationKey(String id) {
+        return "key." + MOD_ID + "." + id;
     }
 }

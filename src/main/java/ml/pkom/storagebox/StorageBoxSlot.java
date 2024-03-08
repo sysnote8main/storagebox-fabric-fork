@@ -5,11 +5,15 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-import static ml.pkom.storagebox.StorageBoxItem.*;
+import static ml.pkom.storagebox.StorageBoxItem.getComponentAsInt;
+import static ml.pkom.storagebox.StorageBoxItem.removeComponent;
+import static ml.pkom.storagebox.StorageBoxItem.setComponentAsInt;
+import static ml.pkom.storagebox.StorageBoxItem.setItemStack;
+import static ml.pkom.storagebox.StorageBoxItem.setItemStackSize;
 
 public class StorageBoxSlot extends Slot {
 
-    private PlayerEntity player;
+    private final PlayerEntity player;
 
     public StorageBoxSlot(Inventory inventory, int index, int x, int y, PlayerEntity player) {
         super(inventory, index, x, y);

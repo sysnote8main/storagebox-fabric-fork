@@ -15,7 +15,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static ml.pkom.storagebox.StorageBoxItem.*;
+import static ml.pkom.storagebox.StorageBoxItem.getComponentAsInt;
+import static ml.pkom.storagebox.StorageBoxItem.getStackInStorageBox;
+import static ml.pkom.storagebox.StorageBoxItem.setItemStackSize;
 
 @Mixin(ItemEntity.class)
 public class ItemPickupMixin {
@@ -102,7 +104,7 @@ public class ItemPickupMixin {
             ItemStack itemStack = itemEntity.getStack();
             Item item = itemStack.getItem();
             int count = itemStack.getCount();
-            if (((ItemEntityAccessor)itemEntity).getPickupDelay() == 0 && (((ItemEntityAccessor)itemEntity).getOwner() == null || ((ItemEntityAccessor)itemEntity).getOwner().equals(player.getUuid()))) {
+            if (((ItemEntityAccessor) itemEntity).getPickupDelay() == 0 && (((ItemEntityAccessor) itemEntity).getOwner() == null || ((ItemEntityAccessor) itemEntity).getOwner().equals(player.getUuid()))) {
 
                 boolean insertedBox = false;
                 boolean checkedEnderChest = false;

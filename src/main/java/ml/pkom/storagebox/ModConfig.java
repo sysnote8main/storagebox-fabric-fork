@@ -5,8 +5,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -73,8 +82,7 @@ public class ModConfig {
 
     public static Boolean getBoolean(String key) {
         Object value = get(key);
-        if (value instanceof Integer) {
-            Integer i = (Integer) value;
+        if (value instanceof Integer i) {
             return i != 0;
         }
         if (value instanceof Boolean)
@@ -111,13 +119,13 @@ public class ModConfig {
      * ファイルにデータを書き込みます。
      * 失敗した場合falseを返します。
      *
-     * @param file   ファイル
+     * @param file     ファイル
      * @param contents データ
      */
     public static boolean fileWriteContents(File file, String contents) {
         try {
             PrintWriter writer = new PrintWriter(
-                    new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
+                    new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)));
             writer.println(contents);
             writer.close();
             return true;
@@ -131,12 +139,12 @@ public class ModConfig {
      * ファイルからデータを読み込みます。
      * 失敗した場合nullを返します。
      *
-     * @param file   ファイル
+     * @param file ファイル
      * @return ファイルのデータ or null
      */
     public static String fileReadContents(File file) {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             String line;
             StringBuilder contents = new StringBuilder();
             while ((line = reader.readLine()) != null) {

@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface ItemRendererAccessor {
 
     @Invoker("renderBakedItemModel")
-    public void invokeRenderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices);
+    void invokeRenderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices);
 
 }

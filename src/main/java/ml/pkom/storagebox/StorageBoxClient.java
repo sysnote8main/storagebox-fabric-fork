@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -23,14 +22,15 @@ import static ml.pkom.storagebox.StorageBoxItem.getStackInStorageBox;
 public class StorageBoxClient implements ClientModInitializer {
 
     private static KeyBinding keyBinding_COLON;
+    public static final String PUT_OUT_AND_THROW = "put_out_and_throw";
 
     @Override
     public void onInitializeClient() {
         keyBinding_COLON = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.storagebox.colon",
+                StorageBoxMod.translationKey("colon"),
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_APOSTROPHE,
-                "key.storagebox.category"
+                StorageBoxMod.translationKey("category")
         ));
         HandledScreens.register(StorageBoxScreenHandler.SCREEN_HANDLER_TYPE, StorageBoxScreen::new);
 
@@ -60,19 +60,19 @@ public class StorageBoxClient implements ClientModInitializer {
                     if (isKeyDownShift()) {
                         if (isKeyDownCtrl()) {
                             // ドロップ: (: + Shift + Ctrl)
-                            ClientPlayNetworking.send(new KeyPayload("put_out_and_throw"));
+                            ClientPlayNetworking.send(new KeyPayload(StorageBoxNetworkKey.PUT_OUT_AND_THROW));
                         } else {
                             // 取り出す or コンテナーへ一括収納: (: + Shift)
-                            ClientPlayNetworking.send(new KeyPayload("put_out"));
+                            ClientPlayNetworking.send(new KeyPayload(StorageBoxNetworkKey.PUT_OUT));
                         }
 
                     } else {
                         if (isKeyDownCtrl()) {
                             // AutoCollect切り替え: (: + Ctrl)
-                            ClientPlayNetworking.send(new KeyPayload("auto_collect"));
+                            ClientPlayNetworking.send(new KeyPayload(StorageBoxNetworkKey.AUTO_COLLECT));
                         } else {
                             // コンテナーやインベントリからすべてストレージボックスへ一括収納: (:)
-                            ClientPlayNetworking.send(new KeyPayload("put_in"));
+                            ClientPlayNetworking.send(new KeyPayload(StorageBoxNetworkKey.PUT_IN));
                         }
                     }
                 }

@@ -13,22 +13,22 @@ public class StorageBoxServer {
 
         ServerPlayConnectionEvents.INIT.register((handler, server) -> {
             ServerPlayNetworking.registerReceiver(handler, KeyPayload.ID, ((payload, context) -> {
-                String str = payload.getData();
+                String str = payload.data();
                 ServerPlayerEntity player = context.player();
                 player.server.execute(() -> {
                             if (context.player().getMainHandStack().getItem() instanceof StorageBoxItem) {
                                 ItemStack itemStack = player.getMainHandStack();
                                 switch (str) {
-                                    case "put_out":
+                                    case StorageBoxNetworkKey.PUT_OUT:
                                         StorageBoxItem.keyboardEvent(0, player, itemStack);
                                         break;
-                                    case "put_out_and_throw":
+                                    case StorageBoxNetworkKey.PUT_OUT_AND_THROW:
                                         StorageBoxItem.keyboardEvent(1, player, itemStack);
                                         break;
-                                    case "put_in":
+                                    case StorageBoxNetworkKey.PUT_IN:
                                         StorageBoxItem.keyboardEvent(2, player, itemStack);
                                         break;
-                                    case "auto_collect":
+                                    case StorageBoxNetworkKey.AUTO_COLLECT:
                                         StorageBoxItem.keyboardEvent(3, player, itemStack);
                                         break;
                                 }

@@ -171,6 +171,7 @@ public class StorageBoxItem extends Item {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> entries.add(this));
 
     }
+
     public static void showBar(PlayerEntity player, ItemStack storageBoxStack) {
         if (hasStackInStorageBox(storageBoxStack)) {
             ItemStack stack = getStackInStorageBox(storageBoxStack);
@@ -182,8 +183,7 @@ public class StorageBoxItem extends Item {
     }
 
     public void dropItemStack(LivingEntity entity, ItemStack itemstack) {
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
+        if (entity instanceof PlayerEntity player) {
             player.dropItem(itemstack.copy(), false);
             itemstack.setCount(0);
         }
@@ -542,7 +542,7 @@ public class StorageBoxItem extends Item {
             ItemStack stack = getStackInStorageBox(storageBoxStack);
             int count = getComponentAsInt(storageBoxStack, DataComponentTypes.ITEM_COUNT);
             tooltip.add(Text.literal("§7Name: " + stack.getItem().getName().getString()));
-            tooltip.add(Text.literal("§7Unit: " + calcItemNumByUnit(count , false, stack.getMaxCount())));
+            tooltip.add(Text.literal("§7Unit: " + calcItemNumByUnit(count, false, stack.getMaxCount())));
             tooltip.add(Text.literal("§7Items: " + count));
             tooltip.add(Text.literal("§7AutoCollect: " + (isAutoCollect(storageBoxStack) ? "ON" : "OFF")));
             tooltip.add(Text.literal("§7[Information]"));
@@ -585,7 +585,7 @@ public class StorageBoxItem extends Item {
     }
 
     public static boolean canGive(DefaultedList<ItemStack> inv) {
-        for ( ItemStack stack : inv ) {
+        for (ItemStack stack : inv) {
             if (stack.isEmpty()) return true;
         }
 
@@ -595,8 +595,7 @@ public class StorageBoxItem extends Item {
     public static boolean canInsertStack(ItemStack stack) {
         if (stack.getItem() == StorageBoxItem.instance) return false;
         if (stack.isEnchantable()) return false;
-        if (stack.isDamageable()) return false;
-        return true;
+        return !stack.isDamageable();
     }
 
     public static boolean canInsertStack(ItemStack stack, ItemStack storageBoxStack) {
@@ -607,7 +606,7 @@ public class StorageBoxItem extends Item {
             ItemStack stackInBox = getStackInStorageBox(storageBoxStack);
             if (stackInBox == null || stackInBox.isEmpty()) return false;
             if (stackInBox.getComponents().isEmpty()) return false;
-            if (!stackInBox.equals(stack) && !stackInBox.getComponents().equals(stack.getComponents())) return false;
+            return stackInBox.equals(stack) || stackInBox.getComponents().equals(stack.getComponents());
         }
         return true;
     }

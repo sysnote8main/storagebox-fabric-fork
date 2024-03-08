@@ -9,7 +9,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 
-import static ml.pkom.storagebox.StorageBoxItem.*;
+import static ml.pkom.storagebox.StorageBoxItem.getStackInStorageBox;
+import static ml.pkom.storagebox.StorageBoxItem.hasStackInStorageBox;
 
 public class ItemRendererHooks {
 

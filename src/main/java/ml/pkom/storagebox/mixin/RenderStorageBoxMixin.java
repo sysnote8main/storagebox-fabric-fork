@@ -23,7 +23,8 @@ import static ml.pkom.storagebox.StorageBoxItem.hasStackInStorageBox;
 @Mixin(ItemRenderer.class)
 public abstract class RenderStorageBoxMixin {
 
-    @Shadow public abstract void renderItem(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model);
+    @Shadow
+    public abstract void renderItem(ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model);
 
     @Inject(method = "renderBakedItemModel", at = @At("HEAD"), cancellable = true)
     protected void renderGuiItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices, CallbackInfo ci) {
