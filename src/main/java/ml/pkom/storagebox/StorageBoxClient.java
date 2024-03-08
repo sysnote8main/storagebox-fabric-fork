@@ -22,7 +22,6 @@ import static ml.pkom.storagebox.StorageBoxItem.getStackInStorageBox;
 public class StorageBoxClient implements ClientModInitializer {
 
     private static KeyBinding keyBinding_COLON;
-    public static final String PUT_OUT_AND_THROW = "put_out_and_throw";
 
     @Override
     public void onInitializeClient() {
